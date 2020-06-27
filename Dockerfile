@@ -11,7 +11,7 @@ RUN apk --no-cache add --virtual native-deps python git make gcc g++ openssl-dev
   && cd .. \
   && rm -rf git-crypt \
   && npm config set spin false \
-  && npm install --global firebase-tools@8.4.3 phantomjs-prebuilt node-pre-gyp node-gyp \
+  && npm install --global firebase-tools@8.4.3 node-pre-gyp node-gyp \
   && npm install --global grpc \
   && npm cache clean --force \
   && apk del make gcc g++ openssl-dev
