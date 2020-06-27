@@ -14,6 +14,6 @@ RUN apk --no-cache add --virtual native-deps python git make gcc g++ openssl-dev
   && apk add --no-cache --virtual .gyp \
   && npm install --global firebase-tools@8.4.3 \
   && npm install --global grpc \
-  && apk del .gyp
+  && apk del .gyp \
   && npm cache clean --force \
   && apk del make gcc g++ openssl-dev
