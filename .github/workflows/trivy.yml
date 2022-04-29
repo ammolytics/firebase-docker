@@ -3,16 +3,16 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Trivy docker security scans
+name: build
 
 on:
   push:
-    branches: [ develop, master ]
+    branches: [ master ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ develop ]
+    branches: [ master ]
   schedule:
-    - cron: '20 11 * * 4'
+    - cron: '38 0 * * 3'
 
 permissions:
   contents: read
@@ -36,8 +36,12 @@ jobs:
         uses: aquasecurity/trivy-action@2a2157eb22c08c9a1fac99263430307b8d1bc7a2
         with:
           image-ref: 'docker.io/ammolytics/firebase-docker:${{ github.sha }}'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
