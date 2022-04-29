@@ -3,7 +3,7 @@ MAINTAINER Eric Higgins <erichiggins@gmail.com>
 
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
-RUN apk add native-deps python git make gcc g++ openssl-dev openssl openssh-client libc6-compat \
+RUN apk --no-cache add --virtual native-deps python3 git make gcc g++ openssl-dev openssl openssh-client libc6-compat \
   && git clone https://github.com/AGWA/git-crypt.git \
   && cd git-crypt \
   && make \
